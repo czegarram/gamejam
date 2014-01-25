@@ -23,8 +23,10 @@ public class PlayerControl : MonoBehaviour
 
 	void Update()
 	{
-		Movement(); //call the function every frame
-		RaycastStuff(); //call the function every frame
+		if(networkView.isMine){
+			Movement(); //call the function every frame
+			RaycastStuff(); //call the function every frame
+		}
 	}
 
 	void RaycastStuff()
@@ -57,30 +59,45 @@ public class PlayerControl : MonoBehaviour
 	void Movement() //function that stores all the movement
 	{
 		anim.SetFloat("speed", Mathf.Abs(Input.GetAxis ("Horizontal")));
-		
-		if (Input.GetAxisRaw ("Horizontal") > 0) {
 
-			transform.Translate (Vector3.right * speed * Time.deltaTime); 
-			transform.eulerAngles = new Vector2 (0, 0); //this sets the rotation of the gameobject
-			left=false;
-		} else {
-			if(Input.GetAxisRaw ("Horizontal") < 0){
-				transform.eulerAngles = new Vector2 (0, 180);
-				transform.Translate (Vector3.right * speed * Time.deltaTime);
-				left=true;
-			}else{
-				if(grounded){
-					if(left)
-						transform.Translate (Vector3.right * speed/4 * Time.deltaTime);
-					else
-						transform.Translate (Vector3.left * speed/4 * Time.deltaTime);
-				}
-				//transform.eulerAngles = new Vector2 (0, 180); //this sets the rotation of the gameobject
-				anim.SetFloat ("speed", 0.0f);	
-			}
+		if(Input.GetKey("d")){
+			left = false;
+			transform.eulerAngles = new Vector2 (0, 0);
+			rigidbody2D.velocity = new Vector2(4,0);
 		}
-		
-		if(Input.GetButtonDown("Jump") && grounded) // If the jump button is pressed and the player is grounded then the player jumps 
+		else if(Input.GetKey("a")){
+			transform.eulerAngles = new Vector2 (0, 180);
+			left = true;
+			rigidbody2D.velocity = new Vector2(-4,0);
+		}
+		else if(Input.GetKeyUp("d") || Input.GetKeyUp("a")){
+			rigidbody2D.velocity = new Vector2(0,0);
+			anim.SetFloat ("speed", 0.0f);	
+		}
+//
+//
+//		if (Input.GetAxisRaw ("Horizontal") > 0) {
+//			transform.Translate (Vector3.right * speed * Time.deltaTime); 
+//			transform.eulerAngles = new Vector2 (0, 0); //this sets the rotation of the gameobject
+//			left=false;
+//		} else {
+//			if(Input.GetAxisRaw ("Horizontal") < 0){
+//				transform.eulerAngles = new Vector2 (0, 180);
+//				transform.Translate (Vector3.right * speed * Time.deltaTime);
+//				left=true;
+//			}else{
+////				if(grounded){
+////					if(left)
+////						transform.Translate (Vector3.right * speed/4 * Time.deltaTime);
+////					else
+////						transform.Translate (Vector3.left * speed/4 * Time.deltaTime);
+////				}
+//				//transform.eulerAngles = new Vector2 (0, 180); //this sets the rotation of the gameobject
+//				anim.SetFloat ("speed", 0.0f);	
+//			}
+//		}
+//		
+		if(Input.GetKeyDown("w") && grounded) // If the jump button is pressed and the player is grounded then the player jumps 
 		{
 			if (Input.GetAxis("Jump") > 0){
 				rigidbody2D.AddForce(transform.up * 400f);
