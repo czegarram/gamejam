@@ -59,7 +59,7 @@ public class PlayerControl2 : MonoBehaviour
 		leftToBlock = Physics2D.Linecast (transform.position, interactCheck.position, 1 << LayerMask.NameToLayer ("Block"))
 			|| Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.18f), 1 << LayerMask.NameToLayer ("Block")) 
 				|| Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.36f), 1 << LayerMask.NameToLayer ("Block")) || 
-		Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.54f), 1 << LayerMask.NameToLayer ("Block"));
+				Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.54f), 1 << LayerMask.NameToLayer ("Block"));
 		if(leftToBlock ){
 			interact = true;
 			interacted =true;
