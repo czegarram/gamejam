@@ -63,12 +63,12 @@ public class PlayerControl : MonoBehaviour
 		if(Input.GetKey("d")){
 			left = false;
 			transform.eulerAngles = new Vector2 (0, 0);
-			rigidbody2D.velocity = new Vector2(4,0);
+			rigidbody2D.velocity = new Vector2(4,rigidbody2D.velocity.y);
 		}
 		else if(Input.GetKey("a")){
 			transform.eulerAngles = new Vector2 (0, 180);
 			left = true;
-			rigidbody2D.velocity = new Vector2(-4,0);
+			rigidbody2D.velocity = new Vector2(-4,rigidbody2D.velocity.y);
 		}
 		else if(Input.GetKeyUp("d") || Input.GetKeyUp("a")){
 			rigidbody2D.velocity = new Vector2(0,0);
@@ -96,7 +96,7 @@ public class PlayerControl : MonoBehaviour
 //				anim.SetFloat ("speed", 0.0f);	
 //			}
 //		}
-//		
+
 		if(Input.GetKeyDown("w") && grounded) // If the jump button is pressed and the player is grounded then the player jumps 
 		{
 			if (Input.GetAxis("Jump") > 0){
