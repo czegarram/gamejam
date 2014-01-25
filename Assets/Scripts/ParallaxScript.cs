@@ -4,7 +4,7 @@ using System.Collections;
 public class ParallaxScript : MonoBehaviour {
 	public Transform topScreen;
 	public Transform bottomScreen;
-	public float speed = .6f;
+	public float speed = .6f ;
 	public float pixelsToUnit;
 	private float nextpositionBG;
 	private float maxLimitLeftBG;
@@ -29,22 +29,23 @@ public class ParallaxScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		speed = speed * 0.015f;
 		nextpositionBG = topScreen.gameObject.GetComponent<SpriteRenderer> ().sprite.texture.width / pixelsToUnit ;
 		maxLimitLeftBG = topScreen.transform.position.x - nextpositionBG;
-		Debug.Log (maxLimitLeftBG);
 		ClonarBackgrounds ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//Debug.Log (Time.deltaTime);
 		if (topScreen.transform.position.x < maxLimitLeftBG) {
 			topScreen.transform.position = new Vector3(newTopScreen.transform.position.x+nextpositionBG,topScreen.transform.position.y);
 			GameObject tmp = newTopScreen;
 			newTopScreen = topScreen.gameObject;
 			topScreen = tmp.transform;
 		} else {
-			topScreen.Translate (Vector3.left * speed * Time.deltaTime); 
+			//topScreen.Translate (Vector3.left * speed);
+			topScreen.rigidbody2D.velocity=new Vector2(-2,0);
 		}
 
 		if (bottomScreen.transform.position.x < maxLimitLeftBG) {
@@ -53,10 +54,13 @@ public class ParallaxScript : MonoBehaviour {
 			newBottomScreen = bottomScreen.gameObject;
 			bottomScreen = tmp.transform;
 		} else {
-			bottomScreen.Translate (Vector3.left * speed * Time.deltaTime); 
-		}
+			//bottomScreen.Translate (Vector3.left * speed); 
+			bottomScreen.rigidbody2D.velocity=new Vector2(-2,0);
 
-		newTopScreen.transform.Translate (Vector3.left * speed * Time.deltaTime); 
-		newBottomScreen.transform.Translate (Vector3.left * speed * Time.deltaTime);
+		}
+		newTopScreen.rigidbody2D.velocity=new Vector2(-2,0);
+		newBottomScreen.rigidbody2D.velocity=new Vector2(-2,0);
+		//newTopScreen.transform.Translate (Vector3.left * speed); 
+		//newBottomScreen.transform.Translate (Vector3.left * speed);
 	}
 }
