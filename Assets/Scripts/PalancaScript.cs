@@ -34,6 +34,7 @@ public class PalancaScript : MonoBehaviour {
 			}
 
 			if (bloqueo.transform.position.y > 2.2f && bloqueo.transform.position.y < 5f && Input.GetAxis ("Fire") >= 0){
+				this.GetComponent<Animator>().SetTrigger("Land");
 				bloqueo.rigidbody2D.velocity = new Vector2 (bloqueo.rigidbody2D.velocity.x, -1f*i);
 			}
 		
@@ -47,6 +48,7 @@ public class PalancaScript : MonoBehaviour {
 			}
 			
 			if (bloqueo.transform.position.y > -5 && bloqueo.transform.position.y < -1.8 && Input.GetAxis ("Fire"+input) >= 0){
+				this.GetComponent<Animator>().SetTrigger("Land");
 				bloqueo.rigidbody2D.velocity = new Vector2 (bloqueo.rigidbody2D.velocity.x, 1f);
 			}
 		}
@@ -63,7 +65,8 @@ public class PalancaScript : MonoBehaviour {
 			Debug.Log("enter");
 
 			if (Input.GetAxis ("Fire"+input) < 0){
-				bloqueo.rigidbody2D.velocity = new Vector2 (bloqueo.rigidbody2D.velocity.x, 1f*i);					
+				bloqueo.rigidbody2D.velocity = new Vector2 (bloqueo.rigidbody2D.velocity.x, 1f*i);
+				this.GetComponent<Animator>().SetTrigger("Jump");
 				Debug.Log ("velocity");
 			}else{
 		
