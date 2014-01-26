@@ -23,7 +23,7 @@ public class PalancaScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//bloqueo.rigidbody2D.velocity = new Vector2 (-1f, bloqueo.rigidbody2D.velocity.y);
-		Debug.Log (bloqueo.transform.position);
+
 
 		if (arriba) {
 			if (bloqueo.transform.position.y > 5) {

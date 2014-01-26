@@ -105,7 +105,7 @@ public class PlayerControl2 : MonoBehaviour
 		if (Input.GetButtonDown ("Jump") && (grounded || leftToBlock) && !jumped)// If the jump button is pressed and the player is grounded then the player jumps 
 		{
 			if (Input.GetAxis ("Jump") > 0) {
-				rigidbody2D.AddForce (transform.up * 300f);
+				rigidbody2D.AddForce (transform.up * 350f);
 				jumpTime = jumpDelay;
 				anim.SetTrigger ("Jump");
 				changeBoxCollider2D (boxColliderSizeJump);
