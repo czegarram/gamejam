@@ -109,7 +109,7 @@ public class PlayerControl : MonoBehaviour
 		} else {
 			anim.SetFloat ("speed", 0.0f);
 			if(grounded && !ontoBlock ){
-				rigidbody2D.velocity = new Vector2(-3,rigidbody2D.velocity.y);
+				//rigidbody2D.velocity = new Vector2(-3,rigidbody2D.velocity.y);
 				//transform.Translate (Vector3.right * speed/4 * Time.deltaTime);
 				//transform.Translate (Vector3.left * speed/4 * Time.deltaTime);
 			}

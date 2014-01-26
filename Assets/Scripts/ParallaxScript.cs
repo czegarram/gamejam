@@ -4,6 +4,7 @@ using System.Collections;
 public class ParallaxScript : MonoBehaviour {
 	public Transform topScreen;
 	public Transform bottomScreen;
+	public int scale;
 	public float speed = .6f ;
 	public float pixelsToUnit;
 	private float nextpositionBG;
@@ -30,7 +31,7 @@ public class ParallaxScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		speed = speed * 0.015f;
-		nextpositionBG = topScreen.gameObject.GetComponent<SpriteRenderer> ().sprite.texture.width / pixelsToUnit ;
+		nextpositionBG = (topScreen.gameObject.GetComponent<SpriteRenderer> ().sprite.texture.width / pixelsToUnit) * (scale) ;
 		maxLimitLeftBG = topScreen.transform.position.x - nextpositionBG;
 		ClonarBackgrounds ();
 	}
