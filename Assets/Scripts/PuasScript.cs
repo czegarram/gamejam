@@ -14,9 +14,12 @@ public class PuasScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D c){
-		if (c != null)
-			if (c.name.StartsWith ("Tim"))
+		if (c != null){
+			if (c.name.StartsWith ("Tim")){
 				Destroy (c.gameObject);
+				Application.LoadLevel("Lose");
+			}
+		}
 	}
 
 }

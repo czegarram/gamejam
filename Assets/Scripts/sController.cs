@@ -3,15 +3,15 @@ using System.Collections;
 
 public class sController : MonoBehaviour {
 
-	public GameObject losePrefab;
+	public AudioClip self;
 
-	// Use this for initialization
-	void Start () {
-		Instantiate(losePrefab,Vector3.zero, Quaternion.identity);
+	void Start(){
+		StartCoroutine("playSelf");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	IEnumerator playSelf(){
+		yield return new WaitForSeconds(1);
+		audio.PlayOneShot(self);
 	}
+
 }
