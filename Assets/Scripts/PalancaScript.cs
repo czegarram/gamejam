@@ -8,6 +8,7 @@ public class PalancaScript : MonoBehaviour {
 	private bool colision=false;
 	private int i = 1;
 	private string input;
+	public GameObject bloque;
 	// Use this for initialization
 	void Start () {
 		if (!arriba) {
@@ -16,7 +17,7 @@ public class PalancaScript : MonoBehaviour {
 
 		}
 		initialPosition = this.transform.position;
-		bloqueo.rigidbody2D.velocity = new Vector2 (-1f, bloqueo.rigidbody2D.velocity.y);
+		bloqueo.rigidbody2D.velocity = new Vector2 (-1.5f, bloqueo.rigidbody2D.velocity.y);
 	}
 	
 	// Update is called once per frame
@@ -52,9 +53,10 @@ public class PalancaScript : MonoBehaviour {
 				bloqueo.rigidbody2D.velocity = new Vector2 (bloqueo.rigidbody2D.velocity.x, 1f);
 			}
 		}
-
-
-		transform.Translate (new Vector3 (-.017f, 0, 0));
+		if (bloque != null)
+			transform.position =  new Vector2(bloque.transform.position.x,this.transform.position.y);
+		else
+			transform.Translate (new Vector3 (-.0287f, 0, 0));
 	}
 
 	void OnTriggerStay2D (Collider2D c){
