@@ -154,8 +154,8 @@ public class PlayerControl2 : MonoBehaviour
 			//anim.SetFloat ("speed", 0.0f);
 		}
 		
-		
-		PlayerControl.Instance.listenSaltar ();		
+		if(PlayerControl.Instance!=null)
+			PlayerControl.Instance.listenSaltar ();		
 
 		jumpTime -= Time.deltaTime;
 		if(jumpTime <= 0 && (grounded || leftToBlock) && jumped)
