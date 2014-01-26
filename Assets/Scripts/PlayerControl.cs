@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
 	public Transform jumpCheck, interactCheck; //transform variable for the end points of the linecasts
 	
 	public float speed = .3f;
-	
+	private static PlayerControl instance;
+
 	float jumpTime, jumpDelay = .3f;
 	bool jumped;
 	bool left;
@@ -16,7 +17,21 @@ public class PlayerControl : MonoBehaviour
 	Vector2 boxColliderSizeRun;
 	Vector2 boxColliderSizeJump;
 	Animator anim;
+
+	public static PlayerControl Instance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 	
+	
+	void Awake(){
+		instance = this;
+	}
+
+
 	void Start()
 	{
 		boxColliderSizeLand = new Vector2(GetComponent<BoxCollider2D>().size.x,GetComponent<BoxCollider2D>().size.y);
@@ -57,7 +72,7 @@ public class PlayerControl : MonoBehaviour
 		
 		
 		leftToBlock = Physics2D.Linecast (transform.position, interactCheck.position, 1 << LayerMask.NameToLayer ("Block"))
-			|| Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.18f), 1 << LayerMask.NameToLayer ("Block")) 
+			|| Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.24f), 1 << LayerMask.NameToLayer ("Block")) 
 				|| Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.36f), 1 << LayerMask.NameToLayer ("Block")) || 
 				Physics2D.Linecast (transform.position, new Vector2( interactCheck.position.x,interactCheck.position.y+0.54f), 1 << LayerMask.NameToLayer ("Block"));
 		if(leftToBlock ){
@@ -84,8 +99,21 @@ public class PlayerControl : MonoBehaviour
 
 		Physics2D.IgnoreLayerCollision(8, 10); //if we want certain layers to ignore each others collision, we use this! the number is the layer number in the layers list
 	*/}
-	
-	
+
+	public void listenSaltar ()
+	{
+		if (Input.GetButtonDown ("Jump2") && (grounded || leftToBlock) && !jumped)// If the jump button is pressed and the player is grounded then the player jumps 
+		{
+			if (Input.GetAxis ("Jump2") > 0) {
+				rigidbody2D.AddForce (transform.up * 300f);
+				jumpTime = jumpDelay;
+				anim.SetTrigger ("Jump");
+				changeBoxCollider2D (boxColliderSizeJump);
+				jumped = true;
+			}
+		}
+	}	
+
 	void Movement() //function that stores all the movement
 	{
 		anim.SetFloat("speed", Mathf.Abs(Input.GetAxis ("Horizontal")));
@@ -101,7 +129,7 @@ public class PlayerControl : MonoBehaviour
 			}
 			
 		} else if (Input.GetAxisRaw ("Horizontal") < 0 ) {
-			rigidbody2D.velocity = new Vector2 (-2, rigidbody2D.velocity.y);
+			rigidbody2D.velocity = new Vector2 (-4, rigidbody2D.velocity.y);
 			transform.eulerAngles = new Vector2 (0, 180);
 			changeBoxCollider2D(boxColliderSizeRun);
 			//transform.Translate (Vector3.right * speed * Time.deltaTime);
@@ -125,18 +153,8 @@ public class PlayerControl : MonoBehaviour
 		}
 		
 		
-		if(Input.GetButtonDown("Jump") && (grounded || leftToBlock)&& !jumped) // If the jump button is pressed and the player is grounded then the player jumps 
-		{
-			if (Input.GetAxis("Jump") > 0){
-				rigidbody2D.AddForce(transform.up * 280f);
-				jumpTime = jumpDelay;
-				anim.SetTrigger("Jump");
-				changeBoxCollider2D(boxColliderSizeJump);
-				jumped = true;
-				
-			}
-		}
-		
+		PlayerControl2.Instance.listenSaltar ();
+
 		jumpTime -= Time.deltaTime;
 		if(jumpTime <= 0 && (grounded || leftToBlock) && jumped)
 		{

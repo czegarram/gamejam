@@ -30,7 +30,7 @@ public class ParallaxScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		speed = speed * 0.015f;
+
 		nextpositionBG = (topScreen.gameObject.GetComponent<SpriteRenderer> ().sprite.texture.width / pixelsToUnit) * (scale) ;
 		maxLimitLeftBG = topScreen.transform.position.x - nextpositionBG;
 		ClonarBackgrounds ();
@@ -46,7 +46,7 @@ public class ParallaxScript : MonoBehaviour {
 			topScreen = tmp.transform;
 		} else {
 			//topScreen.Translate (Vector3.left * speed);
-			topScreen.rigidbody2D.velocity=new Vector2(-2,0);
+			topScreen.rigidbody2D.velocity=new Vector2(speed,0);
 		}
 
 		if (bottomScreen.transform.position.x < maxLimitLeftBG) {
@@ -56,11 +56,11 @@ public class ParallaxScript : MonoBehaviour {
 			bottomScreen = tmp.transform;
 		} else {
 			//bottomScreen.Translate (Vector3.left * speed); 
-			bottomScreen.rigidbody2D.velocity=new Vector2(-2,0);
+			bottomScreen.rigidbody2D.velocity=new Vector2(speed,0);
 
 		}
-		newTopScreen.rigidbody2D.velocity=new Vector2(-2,0);
-		newBottomScreen.rigidbody2D.velocity=new Vector2(-2,0);
+		newTopScreen.rigidbody2D.velocity=new Vector2(speed,0);
+		newBottomScreen.rigidbody2D.velocity=new Vector2(speed,0);
 		//newTopScreen.transform.Translate (Vector3.left * speed); 
 		//newBottomScreen.transform.Translate (Vector3.left * speed);
 	}
